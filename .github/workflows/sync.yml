@@ -1,0 +1,34 @@
+name: Sync CV from resume repo
+
+on:
+  # Runs when you manually trigger it
+  workflow_dispatch:
+  # Or automatically every time resume repo pushes (needs a webhook, more complex)
+  # Simpler: just run on a schedule or manually
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout .github.io repo
+        uses: actions/checkout@v4
+
+      - name: Download cv_fr.html from resume repo
+        run: |
+          curl -L \
+            "https://raw.githubusercontent.com/Vincent-Mouillot/resume/main/docs/cv_fr.html" \
+            -o cv_fr.html
+
+      - name: Download cv_en.html from resume repo
+        run: |
+          curl -L \
+            "https://raw.githubusercontent.com/Vincent-Mouillot/resume/main/docs/cv_en.html" \
+            -o cv_en.html
+
+      - name: Commit and push
+        run: |
+          git config user.name "github-actions"
+          git config user.email "actions@github.com"
+          git add cv_fr.html cv_en.html
+          git diff --staged --quiet || git commit -m "sync CV from resume repo"
+          git push

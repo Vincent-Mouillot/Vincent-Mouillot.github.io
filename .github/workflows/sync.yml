@@ -27,6 +27,18 @@ jobs:
             "https://raw.githubusercontent.com/Vincent-Mouillot/resume/main/docs/cv_en.html" \
             -o cv_en.html
 
+      - name: Download cv_fr.pdf from resume repo
+        run: |
+          curl -L \
+            "https://raw.githubusercontent.com/Vincent-Mouillot/resume/main/docs/cv_fr.pdf" \
+            -o cv_fr.pdf
+
+      - name: Download cv_en.pdf from resume repo
+        run: |
+          curl -L \
+            "https://raw.githubusercontent.com/Vincent-Mouillot/resume/main/docs/cv_en.pdf" \
+            -o cv_en.pdf
+
       - name: Commit and push
         env:
           TOKEN: ${{ secrets.PAGES_TOKEN }}

@@ -26,9 +26,12 @@ jobs:
             -o cv_en.html
 
       - name: Commit and push
+        env:
+          TOKEN: ${{ secrets.PAGES_TOKEN }}
         run: |
           git config user.name "github-actions"
           git config user.email "actions@github.com"
+          git remote set-url origin https://x-access-token:${TOKEN}@github.com/Vincent-Mouillot/Vincent-Mouillot.github.io.git
           git add cv_fr.html cv_en.html
           git diff --staged --quiet || git commit -m "sync CV from resume repo"
           git push

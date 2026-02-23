@@ -12,6 +12,8 @@ jobs:
     steps:
       - name: Checkout .github.io repo
         uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.PAGES_TOKEN }}
 
       - name: Download cv_fr.html from resume repo
         run: |
